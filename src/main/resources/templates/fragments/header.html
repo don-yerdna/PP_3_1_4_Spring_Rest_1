@@ -1,0 +1,15 @@
+<header class="header-area" th:fragment="header">
+    <div class="container-fluid bg-dark">
+        <div class="row align-items-center text-bg-dark">
+
+            <div class="col-11 d-flex flex-row align-baseline">
+                <div class="p-2 fw-bold" th:text="${user.getUsername()}">VALUE</div>
+                <div class="p-1 mt-1">with roles:</div>
+                <div class="p-1 mt-1" th:each="role: ${roles}" th:text="${role}"></div>
+            </div>
+            <div class="col-1 text-end"><a href="/logout"
+                                           class="link-secondary link-underline link-underline-opacity-0 ">Logout</a>
+            </div>
+        </div>
+    </div>
+</header>

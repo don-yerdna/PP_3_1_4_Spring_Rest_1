@@ -22,7 +22,6 @@ public class RolesRestController {
 
     @GetMapping("/")
     public List<Role> getRoles() {
-//        System.out.println("getRoles");
         return roleService.getAllRoles();
     }
 

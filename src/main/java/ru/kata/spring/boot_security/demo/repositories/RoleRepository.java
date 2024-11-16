@@ -11,6 +11,4 @@ import java.util.Optional;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
-//    @Query("select r from Role r join fetch User u where u.id=:userId")
-//    List<Role> findByUserId(@Param("userId") Long userId);
 }

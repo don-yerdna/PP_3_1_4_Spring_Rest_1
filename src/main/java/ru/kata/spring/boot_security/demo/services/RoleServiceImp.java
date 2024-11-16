@@ -29,9 +29,4 @@ public class RoleServiceImp implements RoleService {
     public Role getRoleById(long id) {
         return roleRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Role with id " + id + " not found"));
     }
-
-//    @Override
-//    public List<Role> getAllRolesByUserId(Long userId) {
-//        return roleRepository.findByUserId(userId);
-//    }
 }

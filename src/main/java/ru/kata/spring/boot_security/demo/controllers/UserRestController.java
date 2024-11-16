@@ -35,11 +35,6 @@ public class UserRestController {
         userService.addUser(user);
         return userService.getAllUsers();
     }
-//    @PostMapping("/add")
-//    public ResponseEntity<User> addUser(@ModelAttribute("newuser") User user) {
-//        userService.addUser(user);
-//        return  ResponseEntity.ok(userService.getUserById(user.getId()));
-//    }
 
     @PutMapping("/")
     public User updateUser(@RequestBody User user) {

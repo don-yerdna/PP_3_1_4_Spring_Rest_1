@@ -7,6 +7,7 @@ import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,5 +22,10 @@ public class RoleServiceImp implements RoleService {
     @Override
     public List<Role> getAllRoles() {
         return roleRepository.findAll();
+    }
+
+    @Override
+    public List<Role> getAllRolesByUserId(Long userId) {
+        return roleRepository.findByUserId(userId);
     }
 }

@@ -4,6 +4,7 @@
 
             <div class="col-11 d-flex flex-row align-baseline">
                 <div class="p-2 fw-bold" th:text="${user.getUsername()}">VALUE</div>
+                <input type="hidden" id="loggedUserId" th:value="${user.getId()}"/>
                 <div class="p-1 mt-1">with roles:</div>
                 <div class="p-1 mt-1" th:each="role: ${roles}" th:text="${role}"></div>
             </div>

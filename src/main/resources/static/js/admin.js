@@ -143,6 +143,15 @@ function sendFormNewUser() {
         });
 }
 
+function deleteUser(id){
+    fetch("/api/users/" + id,{
+        method : "DELETE"
+    }).then(response => response.json())
+        .then(result => {
+            adminContent(result);
+        });
+}
+
 function adminContent(result) {
     const mainContent = document.getElementById("main-content");
     const userButton = document.getElementById("user-button");
@@ -457,3 +466,73 @@ function adminContent(result) {
     mainContent.append(div2);
     mainContent.append(div7);
 }
+
+function modalEdit() {
+    // <div th:each="edituser : ${users}">
+    //     <div className="modal fade" id="editUser" th:attrappend="id=${''+edituser.getId()}" tabIndex="-1"
+    //          aria-labelledby="exampleModalLabel"
+    //          aria-hidden="true">
+    //         <div className="modal-dialog">
+    //             <div className="modal-content ">
+    //                 <div className="modal-header">
+    //                     <h1 className="modal-title fs-5" id="exampleModalLabel">Edit user</h1>
+    //                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    //                 </div>
+    //                 <div className="modal-body text-center">
+    //                     <form action="/admin/save" modelAttribute="user">
+    //                         <label><strong>ID</strong></label>
+    //                         <div className="offset-md-3"><input className="form-control" name="id" type="text" disabled
+    //                                                             th:value="${edituser.getId()}"/></div>
+    //                         <br/>
+    //                         <label><strong>Username</strong></label>
+    //                         <div className="offset-md-3"><input className="form-control" name="username" type="text"
+    //                                                             th:value="${edituser.getUsername()}"/></div>
+    //                         <br/>
+    //
+    //                         <label><strong>First name</strong></label>
+    //                         <div className="offset-md-3"><input className="form-control" name="firstname" type="text"
+    //                                                             th:value="${edituser.getFirstname()}"/></div>
+    //                         <br/>
+    //                         <label><strong>Last name</strong></label>
+    //                         <div className="offset-md-3"><input className="form-control" name="lastname" type="text"
+    //                                                             th:value="${edituser.getLastname()}"/></div>
+    //                         <br/>
+    //
+    //                         <label><strong>Age</strong></label>
+    //                         <div className="offset-md-3"><input className="form-control" name="age" type="number"
+    //                                                             th:value="${edituser.getAge()}"/>
+    //                         </div>
+    //                         <br/>
+    //                         <label><strong>Email</strong></label>
+    //                         <div className="offset-md-3"><input className="form-control" name="email" type="email"
+    //                                                             th:value="${edituser.getEmail()}"/></div>
+    //                         <br/>
+    //                         <label><strong>Password</strong></label>
+    //                         <div className="offset-md-3"><input className="form-control" name="password" type="password"
+    //                                                             value=""/></div>
+    //                         <br/>
+    //                         <label><strong>Roles</strong></label>
+    //                         <div className="offset-md-3"><select className="form-select" name="roles"
+    //                                                              th:value="edituser.roles"
+    //                                                              multiple>
+    //                             <option th:each="role : ${allroles}"
+    //                                     th:value="${role.id}"
+    //                                     th:text="${role.role}"
+    //                                     th:selected="${edituser.roles.contains(role)}"></option>
+    //                         </select></div>
+    //                         <input name="id" type="hidden" th:value="${edituser.getId()}"/>
+    //                         <br/>
+    //
+    //                         <div className="modal-footer">
+    //                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close
+    //                             </button>
+    //                             <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Edit</button>
+    //                         </div>
+    //                     </form>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     </div>
+    // </div>
+}
+

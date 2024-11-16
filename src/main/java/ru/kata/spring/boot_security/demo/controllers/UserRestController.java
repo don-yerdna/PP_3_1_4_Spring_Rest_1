@@ -31,7 +31,6 @@ public class UserRestController {
 
     @PostMapping("/")
     public List<User> createUser(@ModelAttribute("newuser") User user) {
-        System.out.println(user);
         userService.addUser(user);
         return userService.getAllUsers();
     }
@@ -43,7 +42,8 @@ public class UserRestController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable long id) {
+    public List<User>  deleteUser(@PathVariable long id) {
         userService.removeUserById(id);
+        return userService.getAllUsers();
     }
 }

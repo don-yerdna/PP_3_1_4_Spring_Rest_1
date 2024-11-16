@@ -143,13 +143,35 @@ function sendFormNewUser() {
         });
 }
 
-function deleteUser(id){
-    fetch("/api/users/" + id,{
-        method : "DELETE"
+function sendFormUpdateUser() {
+    const formElem = document.getElementById('formUpdateUser');
+    const formDateUpdateUser = new FormData(formElem);
+    fetch("/api/users/update", {
+        method: "POST",
+        body: formDateUpdateUser
     }).then(response => response.json())
         .then(result => {
             adminContent(result);
         });
+}
+
+function deleteUser(id) {
+    fetch("/api/users/" + id, {
+        method: "DELETE"
+    }).then(response => response.json())
+        .then(result => {
+            adminContent(result);
+        });
+}
+
+function updateUser(id) {
+    const user = fetch("/api/users/" + id, {
+        method: "GET"
+    }).then(response => response.json())
+        .then(result => {
+            modalEdit(result);
+        });
+
 }
 
 function adminContent(result) {
@@ -275,13 +297,17 @@ function adminContent(result) {
             pUser.innerText = userTableRole.role.replace("ROLE_", "");
             tdUserRole.append(pUser);
         }
+        // <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        //     Запустите демо модального окна
+        // </button>
         const tdButtonEdit = document.createElement('td');
         const buttonEditUser = document.createElement('button');
         buttonEditUser.type = 'button';
         buttonEditUser.classList.add("btn");
         buttonEditUser.classList.add("btn-primary");
         buttonEditUser.setAttribute("data-bs-toggle", "modal");
-        buttonEditUser.setAttribute("data-bs-target", "#editUser" + userTable.id);
+        buttonEditUser.setAttribute("data-bs-target", "#exampleModal");
+        buttonEditUser.setAttribute("onclick", 'updateUser(' + userTable.id + ');');
         buttonEditUser.innerText = "Edit";
         tdButtonEdit.append(buttonEditUser);
         const tdButtonDelete = document.createElement('td');
@@ -391,7 +417,7 @@ function adminContent(result) {
     inputNewAge.classList.add("form-control");
     inputNewAge.id = "age";
     inputNewAge.name = "age";
-    inputNewAge.type = "text";
+    inputNewAge.type = "number";
     div14.append(inputNewAge);
     formNewUser.append(div14);
     const br4 = document.createElement('br');
@@ -467,72 +493,180 @@ function adminContent(result) {
     mainContent.append(div7);
 }
 
-function modalEdit() {
-    // <div th:each="edituser : ${users}">
-    //     <div className="modal fade" id="editUser" th:attrappend="id=${''+edituser.getId()}" tabIndex="-1"
-    //          aria-labelledby="exampleModalLabel"
-    //          aria-hidden="true">
-    //         <div className="modal-dialog">
-    //             <div className="modal-content ">
-    //                 <div className="modal-header">
-    //                     <h1 className="modal-title fs-5" id="exampleModalLabel">Edit user</h1>
-    //                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    //                 </div>
-    //                 <div className="modal-body text-center">
-    //                     <form action="/admin/save" modelAttribute="user">
-    //                         <label><strong>ID</strong></label>
-    //                         <div className="offset-md-3"><input className="form-control" name="id" type="text" disabled
-    //                                                             th:value="${edituser.getId()}"/></div>
-    //                         <br/>
-    //                         <label><strong>Username</strong></label>
-    //                         <div className="offset-md-3"><input className="form-control" name="username" type="text"
-    //                                                             th:value="${edituser.getUsername()}"/></div>
-    //                         <br/>
-    //
-    //                         <label><strong>First name</strong></label>
-    //                         <div className="offset-md-3"><input className="form-control" name="firstname" type="text"
-    //                                                             th:value="${edituser.getFirstname()}"/></div>
-    //                         <br/>
-    //                         <label><strong>Last name</strong></label>
-    //                         <div className="offset-md-3"><input className="form-control" name="lastname" type="text"
-    //                                                             th:value="${edituser.getLastname()}"/></div>
-    //                         <br/>
-    //
-    //                         <label><strong>Age</strong></label>
-    //                         <div className="offset-md-3"><input className="form-control" name="age" type="number"
-    //                                                             th:value="${edituser.getAge()}"/>
-    //                         </div>
-    //                         <br/>
-    //                         <label><strong>Email</strong></label>
-    //                         <div className="offset-md-3"><input className="form-control" name="email" type="email"
-    //                                                             th:value="${edituser.getEmail()}"/></div>
-    //                         <br/>
-    //                         <label><strong>Password</strong></label>
-    //                         <div className="offset-md-3"><input className="form-control" name="password" type="password"
-    //                                                             value=""/></div>
-    //                         <br/>
-    //                         <label><strong>Roles</strong></label>
-    //                         <div className="offset-md-3"><select className="form-select" name="roles"
-    //                                                              th:value="edituser.roles"
-    //                                                              multiple>
-    //                             <option th:each="role : ${allroles}"
-    //                                     th:value="${role.id}"
-    //                                     th:text="${role.role}"
-    //                                     th:selected="${edituser.roles.contains(role)}"></option>
-    //                         </select></div>
-    //                         <input name="id" type="hidden" th:value="${edituser.getId()}"/>
-    //                         <br/>
-    //
-    //                         <div className="modal-footer">
-    //                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close
-    //                             </button>
-    //                             <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Edit</button>
-    //                         </div>
-    //                     </form>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     </div>
-    // </div>
+function modalEdit(result) {
+    const generalContent = document.getElementById("modal-body");
+    generalContent.replaceChildren();
+    const form = document.createElement('form');
+    form.setAttribute("modelAttribute", "user");
+    form.id = "formUpdateUser";
+    const labelId = document.createElement('label');
+    const strongId = document.createElement('strong');
+    strongId.innerText = "ID";
+    labelId.append(strongId);
+    form.append(labelId);
+    const div25 = document.createElement('div');
+    div25.className = "offset-md-3";
+    const inputId = document.createElement('input');
+    inputId.className = "form-control";
+    inputId.name = "id";
+    inputId.type = "text";
+    inputId.disabled = true;
+    inputId.value = result.id;
+    div25.append(inputId);
+    form.append(div25);
+    const br1 = document.createElement('br');
+    form.append(br1);
+    const labelUsername = document.createElement('label');
+    const strongUsername = document.createElement('strong');
+    strongUsername.innerText = "Username";
+    labelUsername.append(strongUsername);
+    form.append(labelUsername);
+    const div26 = document.createElement('div');
+    div26.className = "offset-md-3";
+    const inputUsername = document.createElement('input');
+    inputUsername.className = "form-control";
+    inputUsername.name = "username";
+    inputUsername.type = "text";
+    inputUsername.value = result.username;
+    div26.append(inputUsername);
+    form.append(div26);
+    const br2 = document.createElement('br');
+    form.append(br2);
+    const labelFirstname = document.createElement('label');
+    const strongFirstname = document.createElement('strong');
+    strongFirstname.innerText = "First name";
+    labelFirstname.append(strongFirstname);
+    form.append(labelFirstname);
+    const div27 = document.createElement('div');
+    div27.className = "offset-md-3";
+    const inputFirstname = document.createElement('input');
+    inputFirstname.className = "form-control";
+    inputFirstname.name = "firstname";
+    inputFirstname.type = "text";
+    inputFirstname.value = result.firstname;
+    div27.append(inputFirstname);
+    form.append(div27);
+    const br3 = document.createElement('br');
+    form.append(br3);
+    const labelLastname = document.createElement('label');
+    const strongLastname = document.createElement('strong');
+    strongLastname.innerText = "Last name";
+    labelLastname.append(strongLastname);
+    form.append(labelLastname);
+    const div28 = document.createElement('div');
+    div28.className = "offset-md-3";
+    const inputLastname = document.createElement('input');
+    inputLastname.className = "form-control";
+    inputLastname.name = "lastname";
+    inputLastname.type = "text";
+    inputLastname.value = result.lastname;
+    div28.append(inputLastname);
+    form.append(div28);
+    const br4 = document.createElement('br');
+    form.append(br4);
+    const labelAge = document.createElement('label');
+    const strongAge = document.createElement('strong');
+    strongAge.innerText = "Age";
+    labelAge.append(strongAge);
+    form.append(labelAge);
+    const div29 = document.createElement('div');
+    div29.className = "offset-md-3";
+    const inputAge = document.createElement('input');
+    inputAge.className = "form-control";
+    inputAge.name = "age";
+    inputAge.type = "number";
+    inputAge.value = result.age;
+    div29.append(inputAge);
+    form.append(div29);
+    const br5 = document.createElement('br');
+    form.append(br5);
+    const labelEmail = document.createElement('label');
+    const strongEmail = document.createElement('strong');
+    strongEmail.innerText = "Email";
+    labelEmail.append(strongEmail);
+    form.append(labelEmail);
+    const div30 = document.createElement('div');
+    div30.className = "offset-md-3";
+    const inputEmail = document.createElement('input');
+    inputEmail.className = "form-control";
+    inputEmail.name = "email";
+    inputEmail.type = "text";
+    inputEmail.value = result.email;
+    div30.append(inputEmail);
+    form.append(div30);
+    const br6 = document.createElement('br');
+    form.append(br6);
+    const labelPassword = document.createElement('label');
+    const strongPassword = document.createElement('strong');
+    strongPassword.innerText = "Password";
+    labelPassword.append(strongPassword);
+    form.append(labelPassword);
+    const div31 = document.createElement('div');
+    div31.className = "offset-md-3";
+    const inputPassword = document.createElement('input');
+    inputPassword.className = "form-control";
+    inputPassword.name = "password";
+    inputPassword.type = "password";
+    inputPassword.value = result.password;
+    div31.append(inputPassword);
+    form.append(div31);
+    const br7 = document.createElement('br');
+    form.append(br7);
+    const labelRole = document.createElement('label');
+    const strongRole = document.createElement('strong');
+    strongRole.innerText = "Roles";
+    labelRole.append(strongRole);
+    form.append(labelRole);
+    const div32 = document.createElement('div');
+    div32.className = "offset-md-3";
+    const selectRole = document.createElement('select');
+    selectRole.className = "form-select";
+    selectRole.id = "roles";
+    selectRole.name = "roles";
+    selectRole.value = result.roles;
+    selectRole.multiple = true;
+    let arrayRoles = result.authorities;
+    fetch("/api/roles/")
+        .then(response => response.json())
+        .then(resultRoles => {
+            for (const roleUser of resultRoles) {
+                const optionRole = document.createElement('option');
+                optionRole.value = roleUser.id;
+                optionRole.text = roleUser.role.replace("ROLE_", "");
+                for (const roleAuth of arrayRoles) {
+                    if (roleUser.role == roleAuth.role) {
+                        optionRole.selected = true;
+                    }
+                }
+                selectRole.append(optionRole);
+            }
+        });
+    div32.append(selectRole);
+
+    const inputId2 = document.createElement('input');
+    inputId2.name = "id";
+    inputId2.type = "hidden";
+    inputId2.value = result.id;
+    form.append(inputId2);
+    form.append(div32);
+    const br8 = document.createElement('br');
+    form.append(br8);
+    const div33 = document.createElement('div');
+    div33.className = "modal-footer";
+    const buttonClose = document.createElement('button');
+    buttonClose.type = "button";
+    buttonClose.className = "btn btn-secondary";
+    buttonClose.setAttribute("data-bs-dismiss", "modal");
+    buttonClose.innerText = "Close";
+    div33.append(buttonClose);
+    const buttonEdit = document.createElement('button');
+    buttonEdit.type = "button";
+    buttonEdit.className = "btn btn-primary";
+    buttonEdit.setAttribute("data-bs-dismiss", "modal");
+    buttonEdit.innerText = "Edit";
+    buttonEdit.setAttribute("onclick", "sendFormUpdateUser();")
+    div33.append(buttonEdit);
+    form.append(div33);
+    generalContent.append(form);
 }
 

@@ -35,10 +35,10 @@ public class UserRestController {
         return userService.getAllUsers();
     }
 
-    @PutMapping("/")
-    public User updateUser(@RequestBody User user) {
+    @PostMapping("/update")
+    public List<User>  updateUser(@ModelAttribute("user") User user) {
         userService.updateUser(user);
-        return userService.getUserById(user.getId());
+        return userService.getAllUsers();
     }
 
     @DeleteMapping("/{id}")

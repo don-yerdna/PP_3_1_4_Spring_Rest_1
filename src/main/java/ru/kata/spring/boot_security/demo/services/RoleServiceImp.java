@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,12 @@ public class RoleServiceImp implements RoleService {
     }
 
     @Override
-    public List<Role> getAllRolesByUserId(Long userId) {
-        return roleRepository.findByUserId(userId);
+    public Role getRoleById(long id) {
+        return roleRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Role with id " + id + " not found"));
     }
+
+//    @Override
+//    public List<Role> getAllRolesByUserId(Long userId) {
+//        return roleRepository.findByUserId(userId);
+//    }
 }

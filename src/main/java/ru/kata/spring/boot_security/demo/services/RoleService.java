@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface RoleService {
     List<Role> getAllRoles();
-    List<Role> getAllRolesByUserId(Long userId);
+    Role getRoleById(long id);
+//    List<Role> getAllRolesByUserId(Long userId);
 
 }

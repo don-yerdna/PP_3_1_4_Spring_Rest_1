@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
@@ -12,6 +13,7 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserRestController {
     private final UserService userService;
+
     @Autowired
     public UserRestController(UserService userService) {
         this.userService = userService;
@@ -28,15 +30,23 @@ public class UserRestController {
     }
 
     @PostMapping("/")
-    public User createUser(@RequestBody User user) {
+    public List<User> createUser(@ModelAttribute("newuser") User user) {
+        System.out.println(user);
         userService.addUser(user);
-        return userService.getUserById(user.getId());
+        return userService.getAllUsers();
     }
+//    @PostMapping("/add")
+//    public ResponseEntity<User> addUser(@ModelAttribute("newuser") User user) {
+//        userService.addUser(user);
+//        return  ResponseEntity.ok(userService.getUserById(user.getId()));
+//    }
+
     @PutMapping("/")
     public User updateUser(@RequestBody User user) {
         userService.updateUser(user);
         return userService.getUserById(user.getId());
     }
+
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable long id) {
         userService.removeUserById(id);

@@ -43,6 +43,7 @@ public class AdminController {
 
     @RequestMapping("/save")
     public String saveUser(@ModelAttribute("user") User user) {
+        System.out.println(user);
         userService.updateUser(user);
         return "redirect:/admin";
     }

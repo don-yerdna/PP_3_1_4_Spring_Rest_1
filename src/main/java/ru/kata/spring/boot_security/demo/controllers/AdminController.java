@@ -34,23 +34,4 @@ public class AdminController {
         model.addAttribute("newuser", new User());
         return "admin";
     }
-
-    @GetMapping("/add")
-    public String addUser(@ModelAttribute("newuser") User user) {
-        userService.addUser(user);
-        return "redirect:/admin";
-    }
-
-    @RequestMapping("/save")
-    public String saveUser(@ModelAttribute("user") User user) {
-        System.out.println(user);
-        userService.updateUser(user);
-        return "redirect:/admin";
-    }
-
-    @GetMapping("/remove")
-    public String removeUser(@RequestParam(value = "id", required = true) Long id) {
-        userService.removeUserById(id);
-        return "redirect:/admin";
-    }
 }

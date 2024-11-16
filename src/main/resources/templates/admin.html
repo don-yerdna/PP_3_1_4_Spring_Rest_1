@@ -12,8 +12,6 @@
         <div id="main-content" class="col-10 bg-body-tertiary vh-100"></div>
     </div>
 </div>
-<!--///////////////////////////////////////////////////////-->
-<!-- Модальное окно -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content ">
@@ -22,79 +20,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div id="modal-body" class="modal-body text-center">
-<!--                !!!!!!!!!!!!!!!!!!!-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-<!--                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Edit</button>-->
             </div>
         </div>
     </div>
 </div>
-<!--<div th:each="edituser : ${users}">-->
-<!--    <div class="modal fade" id="editUser" th:attrappend="id=${''+edituser.getId()}" tabindex="-1"-->
-<!--         aria-labelledby="exampleModalLabel"-->
-<!--         aria-hidden="true">-->
-<!--        <div class="modal-dialog">-->
-<!--            <div class="modal-content ">-->
-<!--                <div class="modal-header">-->
-<!--                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit user</h1>-->
-<!--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--                </div>-->
-<!--                <div class="modal-body text-center">-->
-<!--                    <form action="/admin/save" modelAttribute="user">-->
-<!--                        <label><strong>ID</strong></label>-->
-<!--                        <div class="offset-md-3"><input class="form-control" name="id" type="text" disabled-->
-<!--                                                        th:value="${edituser.getId()}"></div>-->
-<!--                        <br>-->
-<!--                        <label><strong>Username</strong></label>-->
-<!--                        <div class="offset-md-3"><input class="form-control" name="username" type="text"-->
-<!--                                                        th:value="${edituser.getUsername()}"></div>-->
-<!--                        <br>-->
-
-<!--                        <label><strong>First name</strong></label>-->
-<!--                        <div class="offset-md-3"><input class="form-control" name="firstname" type="text"-->
-<!--                                                        th:value="${edituser.getFirstname()}"></div>-->
-<!--                        <br>-->
-<!--                        <label><strong>Last name</strong></label>-->
-<!--                        <div class="offset-md-3"><input class="form-control" name="lastname" type="text"-->
-<!--                                                        th:value="${edituser.getLastname()}"></div>-->
-<!--                        <br>-->
-
-<!--                        <label><strong>Age</strong></label>-->
-<!--                        <div class="offset-md-3"><input class="form-control" name="age" type="number"-->
-<!--                                                        th:value="${edituser.getAge()}">-->
-<!--                        </div>-->
-<!--                        <br>-->
-<!--                        <label><strong>Email</strong></label>-->
-<!--                        <div class="offset-md-3"><input class="form-control" name="email" type="email"-->
-<!--                                                        th:value="${edituser.getEmail()}"></div>-->
-<!--                        <br>-->
-<!--                        <label><strong>Password</strong></label>-->
-<!--                        <div class="offset-md-3"><input class="form-control" name="password" type="password"-->
-<!--                                                        value=""></div>-->
-<!--                        <br>-->
-<!--                        <label><strong>Roles</strong></label>-->
-<!--                        <div class="offset-md-3"><select class="form-select" name="roles" th:value="edituser.roles"-->
-<!--                                                         multiple>-->
-<!--                            <option th:each="role : ${allroles}"-->
-<!--                                    th:value="${role.id}"-->
-<!--                                    th:text="${role.role}"-->
-<!--                                    th:selected="${edituser.roles.contains(role)}"></option>-->
-<!--                        </select></div>-->
-<!--                        <input name="id" type="hidden" th:value="${edituser.getId()}">-->
-<!--                        <br>-->
-
-<!--                        <div class="modal-footer">-->
-<!--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-<!--                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Edit</button>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

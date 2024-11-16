@@ -1,7 +1,6 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
@@ -36,13 +35,13 @@ public class UserRestController {
     }
 
     @PostMapping("/update")
-    public List<User>  updateUser(@ModelAttribute("user") User user) {
+    public List<User> updateUser(@ModelAttribute("user") User user) {
         userService.updateUser(user);
         return userService.getAllUsers();
     }
 
     @DeleteMapping("/{id}")
-    public List<User>  deleteUser(@PathVariable long id) {
+    public List<User> deleteUser(@PathVariable long id) {
         userService.removeUserById(id);
         return userService.getAllUsers();
     }
